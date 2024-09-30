@@ -92,7 +92,7 @@ function getdata() {
   let int = setInterval(() => {
     max_time--;
     timer.innerText = max_time;
-    if (max_time <= 0) {
+    if(max_time <= 0) {
       clearInterval(int);
       timer.innerText = "Time UP";
       timer.style.color = "red";
