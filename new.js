@@ -26,14 +26,22 @@ let results = [
 let start = 0;
 
 function getdata() {
+
+  let score = 0;
+
+
   if (start >= results.length) {
     document.body.style.backgroundColor = 'black'
     document.body.appendChild(def)
     console.log("quiz over");
+    start = 0
+    console.log("Your Score is " + score)
+    document.body.appendChild(def);
+    st.addEventListener('click',getdata)
     return;
   }
+
   def.remove()
-  let score = 0;
 
   let display = document.createElement("div");
   display.className = "display";
@@ -63,18 +71,24 @@ function getdata() {
       if (e.target.innerText === results[start].correct_answer) {
         e.target.style.backgroundColor = "green";
         document.body.style.backgroundColor = "green";
+        score += 10;
         console.log("correct ans");
+        document.querySelectorAll('.op').forEach((r)=>{
+          r.disabled = true;
+        })
       } 
       else {
         e.target.style.backgroundColor = "red";
         document.body.style.backgroundColor = "red";
-        return;
+        document.querySelectorAll('.op').forEach((r)=>{
+          r.disabled = true;
+        })
       }
       start++
       setTimeout(() => {
         document.body.removeChild(display);
         getdata(); // next question 
-      }, 0);
+      }, 1000);
     });
   });
 
@@ -87,7 +101,7 @@ function getdata() {
 
   // <------------------------------------------------------------------------------->
 
-  let max_time = 30;
+  let max_time = 3;
   timer.innerText = max_time;
   let int = setInterval(() => {
     max_time--;
@@ -98,7 +112,6 @@ function getdata() {
       timer.style.color = "red";
       start++;
       setTimeout(() => {
-        // document.body.removeChild(display);
         display.remove()
         getdata(); // next question
       }, 1000);
